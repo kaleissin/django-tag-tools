@@ -73,7 +73,6 @@ class BaseTagCloud(object):
                 tags.append(tag)
         return tags
 
-
 class TaggitCloud(BaseTagCloud):
     """
     Given a model with django-taggit's TaggableManager, calculates a
