@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django.db.models.loading import cache as app_cache, ImproperlyConfigured
 from django.conf import settings
 
@@ -22,5 +24,11 @@ def _set_tag_app():
 
 PREFERRED_APP_ORDER = _set_tag_app()
 
-if not TAG_APP in PREFERRED_APP_ORDER:
+if TAG_APP not in PREFERRED_APP_ORDER:
+    TAG_APP = None
+
+if PREFERRED_APP_ORDER:
+    if not TAG_APP:
+        TAG_APP = PREFERRED_APP_ORDER[0]
+else:
     TAG_APP = None
