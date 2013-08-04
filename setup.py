@@ -9,6 +9,13 @@ try:
 finally:
     README_FILE.close()
 
+packages = (
+        'tagtools',
+        'tagtools.backends',
+        'tagtools.backends.taggit',
+        'tagtools.backends.tagging',
+)
+
 setup(name='django-tag-tools',
         version='0.1',
         packages=('tagtools',),

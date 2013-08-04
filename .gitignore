@@ -2,4 +2,4 @@
 *.pyo
 *~
 dist
-*.egg-infp
+*.egg-info
