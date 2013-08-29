@@ -38,8 +38,9 @@ def tagged_object_list(request, queryset_or_model=None, tag=None,
         except KeyError:
             raise AttributeError(_('tagged_object_list must be called with a tag.'))
 
-    tag_instance = Tag.objects.get(slug=tag)
-    if tag_instance is None:
+    try:
+        tag_instance = Tag.objects.get(slug=tag)
+    except Tag.DoesNotExist:
         raise Http404(_('No Tag found matching "%s".') % tag)
 
     _, model = _get_queryset_and_model(queryset_or_model)
