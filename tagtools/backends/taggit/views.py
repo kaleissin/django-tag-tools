@@ -35,8 +35,9 @@ class ListTaggedView(ListView):
             tag = self.kwargs.pop('tag')
         except KeyError:
             raise AttributeError(_('tagged_object_list must be called with a tag.'))
-        self.tag_instance = Tag.objects.get(slug=tag)
-        if self.tag_instance is None:
+        try:
+            self.tag_instance = Tag.objects.get(slug=tag)
+        except Tag.DoesNotExist:
             raise Http404(_('No Tag found matching "%s".') % tag)
         _, model = _get_queryset_and_model(queryset_or_model)
         ct_model = ContentType.objects.get_for_model(model)
