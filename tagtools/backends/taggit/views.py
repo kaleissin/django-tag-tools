@@ -39,7 +39,7 @@ class ListTaggedView(ListView):
             self.tag_instance = Tag.objects.get(slug=tag)
         except Tag.DoesNotExist:
             raise Http404(_('No Tag found matching "%s".') % tag)
-        _, model = _get_queryset_and_model(queryset_or_model)
+        qs, model = _get_queryset_and_model(queryset_or_model)
         ct_model = ContentType.objects.get_for_model(model)
         ti_qs = TaggedItem.objects.filter(content_type=ct_model, tag=self.tag_instance)
         queryset = model.objects.filter(pk__in=[o.object_id for o in ti_qs])
