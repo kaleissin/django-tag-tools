@@ -17,7 +17,7 @@ packages = (
 )
 
 setup(name='django-tag-tools',
-        version='0.1.1',
+        version='0.1.2',
         packages=('tagtools',),
         include_package_data=True,
         zip_safe=False,
