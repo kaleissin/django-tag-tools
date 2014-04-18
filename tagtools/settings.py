@@ -14,7 +14,7 @@ TAG_APP = getattr(settings, 'TAGTOOLS_TAG_APP', None)
 CLOUD_STEPS = getattr(settings, 'TAGTOOLS_CLOUD_STEPS', _DEFAULT_CLOUD_STEPS)
 CLOUD_MIN_COUNT = getattr(settings, 'TAGTOOLS_CLOUD_MIN_COUNT', _DEFAULT_CLOUD_MIN_COUNT)
 
-def _set_tag_app():
+def _set_tag_app_order(PREFERRED_APP_ORDER=PREFERRED_APP_ORDER):
     apps = []
     for app in PREFERRED_APP_ORDER:
         try:
@@ -24,13 +24,17 @@ def _set_tag_app():
             pass
     return apps
 
-PREFERRED_APP_ORDER = _set_tag_app()
+PREFERRED_APP_ORDER = _set_tag_app_order()
 
-if TAG_APP not in PREFERRED_APP_ORDER:
-    TAG_APP = None
+def _set_tag_app(TAG_APP=TAG_APP, PREFERRED_APP_ORDER=PREFERRED_APP_ORDER):
+    if TAG_APP not in PREFERRED_APP_ORDER:
+        TAG_APP = None
 
-if PREFERRED_APP_ORDER:
-    if not TAG_APP:
-        TAG_APP = PREFERRED_APP_ORDER[0]
-else:
-    TAG_APP = None
+    if PREFERRED_APP_ORDER:
+        if not TAG_APP:
+            TAG_APP = PREFERRED_APP_ORDER[0]
+    else:
+        TAG_APP = None
+    return TAG_APP
+
+TAG_APP = _set_tag_app()
