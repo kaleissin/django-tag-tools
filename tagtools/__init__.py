@@ -1,13 +1,13 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from tagtools.tagcloud import *
 from tagtools.settings import *
 
 def get_tagcloud_for_model(model, steps=CLOUD_STEPS, min_count=CLOUD_MIN_COUNT):
-    raise NotImplemented, "No tag-app found"
+    raise NotImplementedError('No tag-app found')
 
 def set_tags_for_model(tags, model):
-    raise NotImplemented, "No tag-app found"
+    raise NotImplementedError('No tag-app found')
 
 if PREFERRED_APP_ORDER and not TAG_APP:
     taggit = None

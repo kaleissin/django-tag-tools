@@ -1,4 +1,6 @@
-from __future__ import absolute_import
+# coding: utf-8
+
+from __future__ import absolute_import, unicode_literals
 
 from django.views.generic import ListView
 from django.contrib.contenttypes.models import ContentType

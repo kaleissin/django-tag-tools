@@ -1,4 +1,6 @@
-from __future__ import absolute_import
+# coding: utf-8
+
+from __future__ import absolute_import, unicode_literals
 
 from django.db.models.loading import cache as app_cache, ImproperlyConfigured
 from django.conf import settings

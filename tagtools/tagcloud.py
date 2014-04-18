@@ -1,5 +1,6 @@
-
 # -*- coding: utf8 -*-
+
+from __future__ import unicode_literals
 
 import math
 import logging
@@ -28,7 +29,7 @@ class BaseTagCloud(object):
         """
         Adapted to django-taggit
         """
-        raise NotImplementedError, "This TagCloud has not been adapted to a model"
+        raise NotImplementedError("This TagCloud has not been adapted to a model")
 
     def find_min_max(self):
         edges = self.queryset.aggregate(max=Max('count'), min=Min('count'))
