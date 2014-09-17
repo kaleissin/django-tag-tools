@@ -17,7 +17,7 @@ packages = (
 )
 
 setup(name='django-tag-tools',
-        version='0.1.2',
+        version='0.2.0-alpha',
         packages=('tagtools',),
         include_package_data=True,
         zip_safe=False,
@@ -35,6 +35,7 @@ setup(name='django-tag-tools',
                 'License :: OSI Approved :: MIT License',
                 'Operating System :: OS Independent',
                 'Programming Language :: Python',
+                'Programming Language :: Python :: 3',
                 'Topic :: Software Development :: Libraries :: Application Frameworks',
                 'Topic :: Software Development :: Libraries :: Python Modules',
         ]

@@ -43,4 +43,4 @@ You can generate lists of tags in a view with the function
 You can set tags for a model with ``tagtools.set_tags_for_model``.
 
 
-:Version: 0.1.2
+:Version: 0.2.0-alpha

@@ -1,5 +1,10 @@
 *.pyc
 *.pyo
 *~
-dist
 *.egg-info
+dist
+build
+htmlcov
+MANIFEST
+.tox
+.coverage
