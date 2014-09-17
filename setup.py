@@ -3,7 +3,7 @@
 from distutils.core import setup
 from setuptools import find_packages
 
-README_FILE = open('README.txt')
+README_FILE = open('README.rst')
 try:
     long_description = README_FILE.read()
 finally:
