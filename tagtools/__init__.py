@@ -1,40 +1,28 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
 
 from tagtools.tagcloud import *
 from tagtools.settings import *
+from taggit.models import Tag
 
 def get_tagcloud_for_model(model, steps=CLOUD_STEPS, min_count=CLOUD_MIN_COUNT):
-    raise NotImplementedError('No tag-app found')
+    cloud_calculator = TaggitCloud(model, steps, min_count)
+    return cloud_calculator.calculate_cloud()
 
 def set_tags_for_model(tags, model):
-    raise NotImplementedError('No tag-app found')
-
-if PREFERRED_APP_ORDER and not TAG_APP:
-    taggit = None
-    tagging = None
-    _tag_app_map = {}
-    if 'taggit' in PREFERRED_APP_ORDER:
-        from tagtools.backends import taggit
-        _tag_app_map['taggit'] = taggit.get_tagcloud_for_model
-    if 'tagging' in PREFERRED_APP_ORDER:
-        from tagtools.backends import tagging
-        _tag_app_map['tagging'] = tagging.get_tagcloud_for_model
-
-    def _generic_get_tagcloud_for_model(model, steps=CLOUD_STEPS, min_count=CLOUD_MIN_COUNT):
-        for app in PREFERRED_APP_ORDER:
-            return _tag_app_map[app](model, steps, min_count)
-        return ()
-
-    def _generic_set_tags_for_model(tags, model):
-        if getattr(model.tags, '__module__', False):
-            return taggit.set_tags_for_model(tags, model)
-        return model, None
-
-if TAG_APP == 'taggit':
-    from tagtools.backends.taggit import *
-elif TAG_APP == 'tagging':
-    from tagtools.backends.tagging import *
-elif not TAG_APP:
-    if PREFERRED_APP_ORDER:
-        get_tagcloud_for_model = _generic_get_tagcloud_for_model
-        set_tags_for_model = _generic_set_tags_for_model
+    existing_tags = set(model.tags.all())
+    current_tags = set()
+    if not tags:
+        model.tags.set()
+    else:
+        for tag in tags:
+            t_obj, created = Tag.objects.get_or_create(name=tag)
+            if created:
+                # Make sure the slug is generated
+                t_obj.save()
+            current_tags.add(t_obj)
+        if existing_tags != current_tags:
+            model.tags.add(*tags)
+            remove_tags = existing_tags - current_tags
+            if remove_tags:
+                model.tags.remove(*remove_tags)
+    return model, existing_tags != current_tags
