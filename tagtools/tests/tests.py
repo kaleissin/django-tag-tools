@@ -10,6 +10,7 @@ from faker import Factory as Faker
 from taggit.models import Tag
 
 from tagtools.tools import get_tagcloud_for_model
+from tagtools.tagcloud import BaseTagCloud
 
 from tagtools.tests.models import Headline
 
@@ -30,6 +31,14 @@ class TagFactory(factory.django.DjangoModelFactory):
         model = Tag
 
     name = factory.LazyAttribute(lambda t: fake.name())
+
+
+class BaseTagCloudTest(unittest.TestCase):
+
+    def test_empty_abstract_init(self):
+        with self.assertRaises(NotImplementedError) as e:
+            BaseTagCloud(None)
+            self.assertEqual(e.exception, "This TagCloud has not been adapted to a model")
 
 
 class TagCloudTestCase(TestCase):
