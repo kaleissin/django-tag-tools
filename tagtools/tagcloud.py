@@ -9,6 +9,7 @@ _LOG = logging.getLogger(__name__)
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Max, Min
 
+
 class BaseTagCloud(object):
     """
     Calculates a django-tagging-style tag-cloud.
@@ -22,8 +23,9 @@ class BaseTagCloud(object):
         self.model = model
         self.alphabetic = True
         self.set_tags()
-        self.find_min_max()
-        self.thresholds = self.calculate_thresholds()
+        if len(self.tags):
+            self.find_min_max()
+            self.thresholds = self.calculate_thresholds()
 
     def set_tags(self):
         """
@@ -74,6 +76,7 @@ class BaseTagCloud(object):
                 tags.append(tag)
         return tags
 
+
 class TaggitCloud(BaseTagCloud):
     """
     Given a model with django-taggit's TaggableManager, calculates a
@@ -88,6 +91,11 @@ class TaggitCloud(BaseTagCloud):
         ct = ContentType.objects.get_for_model(self.model)
         tagitems = TaggedItem.objects.filter(content_type=ct).values_list('tag_id',
                 flat=True)
+        if not tagitems.exists():
+            # Nothing tagged, nothing to do, abort, abort!
+            self.tags = []
+            self.queryset = Tag.objects.none()
+            return
         queryset = Tag.objects.filter(id__in=tagitems)
         queryset = queryset.annotate(count=Count('taggit_taggeditem_items'))
         queryset = queryset.filter(count__gte=self.min_count)

@@ -8,7 +8,6 @@ import factory
 from faker import Factory as Faker
 
 from tagtools.tools import get_tagcloud_for_model
-from tagtools.tagcloud import BaseTagCloud
 
 from tagtools.tests.models import Headline
 
@@ -21,3 +20,10 @@ class HeadlineFactory(factory.django.DjangoModelFactory):
         model = Headline
 
     headline = factory.LazyAttribute(lambda t: fake.name())
+
+
+class TagCloudTestCase(TestCase):
+
+    def test_get_tagcloud_for_model_empty(self):
+        tagcloud = get_tagcloud_for_model(Headline)
+        self.assertEqual(tagcloud, [])
