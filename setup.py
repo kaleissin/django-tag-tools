@@ -10,33 +10,33 @@ finally:
     README_FILE.close()
 
 packages = (
-        'tagtools',
-        'tagtools.backends',
-        'tagtools.backends.taggit',
-        'tagtools.backends.tagging',
+    'tagtools',
 )
 
-setup(name='django-tag-tools',
-        version='0.2.0-alpha',
-        packages=('tagtools',),
-        include_package_data=True,
-        zip_safe=False,
-        platforms=['any'],
-        description='Tag cloud for django tagging and django-taggit.',
-        author_email='kaleissin@gmail.com',
-        author='kaleissin',
-        long_description=long_description,
-        url='https://github.com/kaleissin/django-tag-tools',
-        classifiers=[
-                'Development Status :: 4 - Beta',
-                'Environment :: Web Environment',
-                'Framework :: Django',
-                'Intended Audience :: Developers',
-                'License :: OSI Approved :: MIT License',
-                'Operating System :: OS Independent',
-                'Programming Language :: Python',
-                'Programming Language :: Python :: 3',
-                'Topic :: Software Development :: Libraries :: Application Frameworks',
-                'Topic :: Software Development :: Libraries :: Python Modules',
-        ]
+setup(
+    name='django-tag-tools',
+    version='0.2.0-alpha',
+    packages=('tagtools',),
+    include_package_data=True,
+    zip_safe=False,
+    platforms=['any'],
+    description='Tag cloud for django-taggit.',
+    author_email='kaleissin@gmail.com',
+    author='kaleissin',
+    long_description=long_description,
+    url='https://github.com/kaleissin/django-tag-tools',
+    classifiers=[
+            'Development Status :: 4 - Beta',
+            'Environment :: Web Environment',
+            'Intended Audience :: Developers',
+            'License :: OSI Approved :: MIT License',
+            'Operating System :: OS Independent',
+            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Topic :: Software Development :: Libraries :: Application Frameworks',
+            'Topic :: Software Development :: Libraries :: Python Modules',
+            'Framework :: Django :: 1.8',
+            'Framework :: Django :: 1.9',
+    ]
 )
